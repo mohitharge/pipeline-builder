@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.react-flow__handle-right{
+  right: -5px !important;
+}
+.react-flow__handle-left{
+  left: -5px !important;
+}

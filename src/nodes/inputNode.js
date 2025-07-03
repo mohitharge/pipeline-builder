@@ -18,9 +18,10 @@ export const InputNode = ({ id, data }) => {
     <AbstractNode
       id={id}
       title="Input"
+      icon="/Assets/input.png"
       data={nodeData}
       onChange={handleChange}
-      fields={[
+      inputFields={[
         { key: 'inputName', label: 'Name', type: 'text' },
         { key: 'inputType', label: 'Type', type: 'select', options: ['Text', 'File'] },
       ]}

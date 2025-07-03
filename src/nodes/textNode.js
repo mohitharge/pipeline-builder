@@ -19,7 +19,7 @@ export const TextNode = ({ id, data }) => {
       title="Text"
       data={nodeData}
       onChange={handleChange}
-      fields={[
+      inputFields={[
         { key: 'text', label: 'Text', type: 'text' },
       ]}
       handles={[

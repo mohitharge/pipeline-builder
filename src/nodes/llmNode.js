@@ -9,6 +9,7 @@ export const LLMNode = ({ id, data }) => {
     <AbstractNode
       id={id}
       title="LLM"
+      icon="/Assets/chatgpt.png"
       data={data}
       onChange={null}
       handles={[

@@ -12,6 +12,11 @@ import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
 
 import 'reactflow/dist/style.css';
+import { SurveyNode } from './nodes/SurveyNode';
+import { CommentNode } from './nodes/CommentNode';
+import { ConditionNode } from './nodes/ConditionNode';
+import { ConfigNode } from './nodes/ConfigNode';
+import { APICallNode } from './nodes/APICallNode';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -20,6 +25,11 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  ConditionNode: ConditionNode,
+  ConfigNode: ConfigNode,
+  APICallNode: APICallNode,
+  CommentNode: CommentNode,
+  SurveyNode: SurveyNode
 };
 
 const selector = (state) => ({
@@ -80,7 +90,7 @@ export const PipelineUI = () => {
             addNode(newNode);
           }
         },
-        [reactFlowInstance]
+        [addNode, getNodeID, reactFlowInstance]
     );
 
     const onDragOver = useCallback((event) => {
@@ -106,8 +116,8 @@ export const PipelineUI = () => {
                 connectionLineType='smoothstep'
             >
                 <Background color="#aaa" gap={gridSize} />
-                <Controls />
-                <MiniMap />
+                {/* <Controls />
+                <MiniMap /> */}
             </ReactFlow>
         </div>
         </>
