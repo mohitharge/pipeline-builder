@@ -3,7 +3,6 @@ import { Position } from 'reactflow';
 import { AbstractNode } from '../Components/AbstractNode';
 
 export const APICallNode = ({ id, data }) => {
-  console.log("APICallNode",data,id)
   const [nodeData, setNodeData] = useState({
     url: '',
     method: 'GET',
