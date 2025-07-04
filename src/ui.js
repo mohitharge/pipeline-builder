@@ -1,6 +1,5 @@
 // ui.js
 // Displays the drag-and-drop UI
-// --------------------------------------------------
 
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
@@ -10,13 +9,13 @@ import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
-
-import 'reactflow/dist/style.css';
 import { SurveyNode } from './nodes/SurveyNode';
 import { CommentNode } from './nodes/CommentNode';
 import { ConditionNode } from './nodes/ConditionNode';
 import { ConfigNode } from './nodes/ConfigNode';
 import { APICallNode } from './nodes/APICallNode';
+import 'reactflow/dist/style.css';
+import { SubmitButton } from './submit';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -42,7 +41,7 @@ const selector = (state) => ({
   onConnect: state.onConnect,
 });
 
-export const PipelineUI = () => {
+export const PipelineUI = ({darkMode}) => {
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const {
@@ -100,8 +99,11 @@ export const PipelineUI = () => {
 
     return (
         <>
-        <div ref={reactFlowWrapper} style={{width: '100wv', height: '70vh'}}>
+        <div ref={reactFlowWrapper} style={{width: '100wv', height: '87.5vh'}}>
             <ReactFlow
+                style={{
+                  background: darkMode ? '#1e293b' : ''
+                }}
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
@@ -117,6 +119,7 @@ export const PipelineUI = () => {
                 <Background color="#aaa" gap={gridSize} />
                 <Controls />
                 <MiniMap />
+                <SubmitButton nodes={nodes} edges={edges} />
             </ReactFlow>
         </div>
         </>

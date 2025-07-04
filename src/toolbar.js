@@ -19,7 +19,7 @@ const demoNodes = [
   { imgUrl: '/Assets/node.png', type: 'SurveyNode', label: 'Survey' },
 ];
 
-export const PipelineToolbar = () => {
+export const PipelineToolbar = ({darkMode, setDarkMode}) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -77,6 +77,20 @@ export const PipelineToolbar = () => {
             ))}
           </div>
         </div>
+        <button className="icon-toggle" onClick={() => setDarkMode((prev) => !prev)}>
+          <img
+            src="/Assets/sun.png"
+            alt="Light mode"
+            className={`icon-image sun-icon ${darkMode ? 'hide' : 'show'}`}
+            height="26"
+          />
+          <img
+            src="/Assets/moon.png"
+            alt="Dark mode"
+            className={`icon-image moon-icon ${darkMode ? 'show' : 'hide'}`}
+            height="22"
+          />
+        </button>
       </div>
     </div>
   );

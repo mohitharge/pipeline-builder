@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import { PipelineToolbar } from './toolbar';
 import { PipelineUI } from './ui';
-import { SubmitButton } from './submit';
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <>
-      <PipelineToolbar />
-      <PipelineUI />
-      <SubmitButton />
-    </>
+    <div style={{maxWidth: '2440px', margin: '0 auto'}}>
+      <PipelineToolbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <PipelineUI darkMode={darkMode} />
+    </div>
   );
 }
 
