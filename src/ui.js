@@ -14,8 +14,9 @@ import { CommentNode } from './nodes/CommentNode';
 import { ConditionNode } from './nodes/ConditionNode';
 import { ConfigNode } from './nodes/ConfigNode';
 import { APICallNode } from './nodes/APICallNode';
-import 'reactflow/dist/style.css';
 import { SubmitButton } from './submit';
+import 'reactflow/dist/style.css';
+import { isDesktop } from './toolbar';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -58,9 +59,7 @@ export const PipelineUI = ({darkMode}) => {
     useEffect(() => {
     const updateCanvasHeight = () => {
       const toolbar = document.getElementById('toolbar');
-      console.log(toolbar)
       const toolbarHeight = toolbar?.offsetHeight || 0;
-      console.log(toolbarHeight, window.innerHeight)
       setCanvasHeight(`${window.innerHeight - toolbarHeight}px`);
     };
 
@@ -69,10 +68,9 @@ export const PipelineUI = ({darkMode}) => {
     return () => window.removeEventListener('resize', updateCanvasHeight);
   }, []);
 
-    const getInitNodeData = (nodeID, type) => {
-      let nodeData = { id: nodeID, nodeType: `${type}` };
-      return nodeData;
-    }
+    const getInitNodeData = useCallback((nodeID, type) => {
+      return { id: nodeID, nodeType: `${type}` };
+    }, []);
 
     const onDrop = useCallback(
         (event) => {
@@ -104,13 +102,38 @@ export const PipelineUI = ({darkMode}) => {
             addNode(newNode);
           }
         },
-        [addNode, getNodeID, reactFlowInstance]
+        [addNode, getNodeID, reactFlowInstance, getInitNodeData]
     );
 
     const onDragOver = useCallback((event) => {
         event.preventDefault();
         event.dataTransfer.dropEffect = 'move';
     }, []);
+
+  useEffect(() => {
+    const handleTouchDrag = (e) => {
+      const { nodeType } = e.detail;
+      const bounds = reactFlowWrapper.current.getBoundingClientRect();
+
+      const position = reactFlowInstance.project({
+        x: window.innerWidth / 2 - bounds.left,
+        y: window.innerHeight / 2 - bounds.top,
+      });
+
+      const nodeID = getNodeID(nodeType);
+      const newNode = {
+        id: nodeID,
+        type: nodeType,
+        position,
+        data: getInitNodeData(nodeID, nodeType),
+      };
+
+      addNode(newNode);
+    };
+
+    window.addEventListener('touchdragstart', handleTouchDrag);
+    return () => window.removeEventListener('touchdragstart', handleTouchDrag);
+  }, [reactFlowInstance, getNodeID, getInitNodeData, addNode]);
 
     return (
         <>
@@ -133,7 +156,7 @@ export const PipelineUI = ({darkMode}) => {
             >
                 <Background color="#aaa" gap={gridSize} />
                 <Controls />
-                <MiniMap />
+                { isDesktop && <MiniMap /> }
                 <SubmitButton nodes={nodes} edges={edges} />
             </ReactFlow>
         </div>
