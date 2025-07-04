@@ -1,0 +1,99 @@
+.submit-button-container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* Button Styling */
+.submit-button {
+  border: none;
+  background-color: #6366f1;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 120px;
+  transition: background 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #4f46e5;
+}
+
+.submit-button.disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+.close-toast {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-toast:hover {
+  opacity: 0.6;
+}
+
+/* Toast Message */
+.submit-toast {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 24px;
+  max-width: 320px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease-in-out;
+  z-index: 1001;
+}
+
+/* Success */
+.submit-toast.success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+/* Error */
+.submit-toast.error {
+  text-align: center;
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+.submit-toast.warning {
+  text-align: center;
+  background-color: #fefce8;
+  color: #92400e;
+  border: 1px solid #facc15;
+}
+
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 40px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
