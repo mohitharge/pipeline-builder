@@ -70,7 +70,6 @@ export const TextNode = ({ id, data }) => {
           sourceHandle: 'value',
           target: id,
           targetHandle: `inputVars`,
-          type: 'smoothstep', 
           style: {stroke: '#6366f1', strokeDasharray: 7 },
           animated: true, 
           markerEnd: {type: MarkerType.Arrow, height: '20px', width: '20px', color: '#6366f1'},
