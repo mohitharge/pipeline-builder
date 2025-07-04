@@ -41,7 +41,6 @@ export const useStoreWithEqualityFn = createWithEqualityFn((set, get) => ({
       const newEdge = {
         ...connection,
         id: edgeId,
-        type: 'smoothstep',
         animated: true,
         style: {
           stroke: '#6366f1',
