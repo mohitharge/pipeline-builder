@@ -47,7 +47,7 @@
 
 /* Toolbar Container */
 .toolbar-container {
-  padding: 10px;
+  padding: 0 10px;
   display: flex;
   justify-content: space-between;
   background-color: rgb(243, 244, 246);

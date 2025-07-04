@@ -52,7 +52,7 @@ export const PipelineToolbar = ({darkMode, setDarkMode}) => {
   }, []);
 
   return (
-    <div className="toolbar-container">
+    <div id='toolbar' className="toolbar-container">
       {/* Logo */}
       <div className="toolbar-logo">
         <img src="/Assets/logo.png" alt="Logo" height={25} />

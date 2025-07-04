@@ -1,7 +1,7 @@
 // ui.js
 // Displays the drag-and-drop UI
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStoreWithEqualityFn } from './store';
 import { shallow } from 'zustand/shallow';
@@ -44,6 +44,7 @@ const selector = (state) => ({
 export const PipelineUI = ({darkMode}) => {
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
+    const [canvasHeight, setCanvasHeight] = useState('100vh');
     const {
       nodes,
       edges,
@@ -53,6 +54,20 @@ export const PipelineUI = ({darkMode}) => {
       onEdgesChange,
       onConnect
     } = useStoreWithEqualityFn(selector, shallow);
+
+    useEffect(() => {
+    const updateCanvasHeight = () => {
+      const toolbar = document.getElementById('toolbar');
+      console.log(toolbar)
+      const toolbarHeight = toolbar?.offsetHeight || 0;
+      console.log(toolbarHeight, window.innerHeight)
+      setCanvasHeight(`${window.innerHeight - toolbarHeight}px`);
+    };
+
+    updateCanvasHeight();
+    window.addEventListener('resize', updateCanvasHeight);
+    return () => window.removeEventListener('resize', updateCanvasHeight);
+  }, []);
 
     const getInitNodeData = (nodeID, type) => {
       let nodeData = { id: nodeID, nodeType: `${type}` };
@@ -99,7 +114,7 @@ export const PipelineUI = ({darkMode}) => {
 
     return (
         <>
-        <div ref={reactFlowWrapper} style={{width: '100wv', height: '87.5vh'}}>
+        <div ref={reactFlowWrapper} style={{ width: '100%', height: canvasHeight }}>
             <ReactFlow
                 style={{
                   background: darkMode ? '#1e293b' : ''
