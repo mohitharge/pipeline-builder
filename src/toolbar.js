@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { DraggableNode } from './draggableNode';
 import './Toolbar.css';
 
+export const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+
 const primaryNodes = [
   { imgUrl: '/Assets/input.png', type: 'customInput', label: 'Input' },
   { imgUrl: '/Assets/text.png', type: 'text', label: 'Text' },
@@ -19,25 +21,35 @@ const demoNodes = [
   { imgUrl: '/Assets/node.png', type: 'SurveyNode', label: 'Survey' },
 ];
 
-export const PipelineToolbar = ({darkMode, setDarkMode}) => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
+export const PipelineToolbar = ({ darkMode, setDarkMode }) => {
+  const [showDropdown, setShowDropdown] = useState({
+    primary: false,
+    demo: false,
+  });
+
+  const demoRef = useRef(null);
+  const primaryRef = useRef(null);
 
   useEffect(() => {
     const handlePointerDown = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
+      if (
+        demoRef.current &&
+        !demoRef.current.contains(event.target) &&
+        primaryRef.current &&
+        !primaryRef.current.contains(event.target)
+      ) {
+        setShowDropdown({ primary: false, demo: false });
       }
     };
 
     const handleEscape = (event) => {
       if (event.key === 'Escape') {
-        setShowDropdown(false);
+        setShowDropdown({ primary: false, demo: false });
       }
     };
 
     const handleDragEnd = () => {
-      setShowDropdown(false);
+      setShowDropdown({ primary: false, demo: false });
     };
 
     document.addEventListener('pointerdown', handlePointerDown);
@@ -52,31 +64,68 @@ export const PipelineToolbar = ({darkMode, setDarkMode}) => {
   }, []);
 
   return (
-    <div id='toolbar' className="toolbar-container">
+    <div id="toolbar" className="toolbar-container">
       {/* Logo */}
       <div className="toolbar-logo">
         <img src="/Assets/logo.png" alt="Logo" height={25} />
         <span className="logo-text">Pipeline Builder</span>
       </div>
-      {/* Right side nodes */}
-      <div className="toolbar-right">
-        <div className="toolbar-group">
-          {primaryNodes.map((node) => (
-            <DraggableNode key={node.type} {...node} />
-          ))}
-        </div>
 
-        <div className="toolbar-dropdown" ref={dropdownRef}>
-          <button className="dropdown-button" onClick={() => setShowDropdown((prev) => !prev)}>
+      {/* Right Side */}
+      <div className="toolbar-right">
+        {isDesktop ? (
+          <div className="toolbar-group">
+            {primaryNodes.map((node) => (
+              <DraggableNode key={node.type} {...node} />
+            ))}
+          </div>
+        ) : (
+          <div className="toolbar-dropdown" ref={primaryRef}>
+            <button
+              className="dropdown-button"
+              onClick={() =>
+                setShowDropdown((prev) => ({
+                  ...prev,
+                  primary: !prev.primary,
+                  demo: false, // only one open at a time
+                }))
+              }
+            >
+              <img src="/Assets/node.png" alt="button" height={14} />{' '}
+              <span>Primary Nodes</span>
+            </button>
+
+            <div className={`dropdown-menu ${showDropdown.primary ? 'open' : ''}`}>
+              {primaryNodes.map((node) => (
+                <DraggableNode key={node.type} {...node} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Demo Dropdown */}
+        <div className="toolbar-dropdown" ref={demoRef}>
+          <button
+            className="dropdown-button"
+            onClick={() =>
+              setShowDropdown((prev) => ({
+                ...prev,
+                demo: !prev.demo,
+                primary: false, // only one open at a time
+              }))
+            }
+          >
             <img src="/Assets/node.png" alt="button" height={14} /> <span>Demo Nodes</span>
           </button>
 
-          <div className={`dropdown-menu ${showDropdown ? 'open' : ''}`}>
+          <div className={`dropdown-menu ${showDropdown.demo ? 'open' : ''}`}>
             {demoNodes.map((node) => (
               <DraggableNode key={node.type} {...node} />
             ))}
           </div>
         </div>
+
+        {/* Dark Mode Toggle */}
         <button className="icon-toggle" onClick={() => setDarkMode((prev) => !prev)}>
           <img
             src="/Assets/sun.png"

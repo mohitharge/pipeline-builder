@@ -130,7 +130,7 @@ export const AbstractNode = ({
 
       <div className="abstract-node-header">
         <div className="abstract-node-title">
-          <img src={icon ?? "/Assets/default.png"} alt={`${title}-icon`} />
+          <img src={icon ?? "/Assets/node.png"} alt={`${title}-icon`} />
           <span>{title}</span>
         </div>
 

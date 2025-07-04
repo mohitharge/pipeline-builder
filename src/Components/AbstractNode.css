@@ -120,3 +120,31 @@
   align-items: center;
   gap: 6px;
 }
+@media (max-width: 480px) {
+  .abstract-node {
+    max-width: 90vw;
+    padding: 10px;
+    font-size: 12px;
+    width: 160px;
+  }
+
+  .abstract-node-header {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .field-wrapper {
+    font-size: 11px;
+  }
+
+  .field-wrapper select,
+  .field-wrapper input[type="text"],
+  .field-wrapper textarea {
+    font-size: 12px;
+  }
+
+  .abstract-node-delete {
+    font-size: 12px;
+    padding: 0 5px;
+  }
+}

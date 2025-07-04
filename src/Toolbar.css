@@ -65,6 +65,9 @@
 /* Draggable Node Box */
 .draggable-node {
   cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
   min-width: 80px;
   height: 40px;
   display: flex;
@@ -83,6 +86,11 @@
 .draggable-node:hover {
   transform: translateY(-2px);
   box-shadow: rgba(0, 0, 0, 0.28) 0px 4px 8px;
+}
+
+.draggable-node.drag-touch {
+  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 /* Inner content (icon + label) */
@@ -137,6 +145,7 @@
   z-index: 10;
   overflow: hidden;
   max-height: 0;
+  width: fit-content;
   opacity: 0;
   pointer-events: none;
   transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
@@ -225,4 +234,82 @@
 /* Optional hover grow effect */
 .icon-toggle:hover .icon-image.show {
   transform: rotate(0deg) scale(1.2);
+}
+
+@media (max-width: 1024px) {
+  .toolbar-group {
+    margin: 10px;
+    gap: 12px;
+    justify-content: flex-start;
+  }
+
+  .toolbar-logo {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .dropdown-button {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .draggable-node {
+    min-width: 120px;
+    max-width: fit-content;
+    padding: 0 10px;
+  }
+
+  .node-content {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .icon-toggle {
+    padding: 10px;
+    margin: 20px 0 20px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+  .toolbar-dropdown{
+    margin: 10px;
+  }
+  .toolbar-right {
+    position: relative;
+    margin-left: 0;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-group {
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0;
+    gap: 10px;
+  }
+
+  .toolbar-logo {
+    margin: 1rem 0 8px 0;
+    justify-content: center;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .dropdown-menu {
+    top: 45px;
+    right: 0;
+    left: -8px;
+  }
+
+  .icon-toggle {
+    align-self: flex-end;
+    position: absolute;
+    right: 10px;
+    top: -8px;
+  }
 }
