@@ -37,8 +37,26 @@ export const useStoreWithEqualityFn = createWithEqualityFn((set, get) => ({
       });
     },
     onConnect: (connection) => {
+      const edgeId = `edge-${connection.source}-${connection.target}`;
+      const newEdge = {
+        ...connection,
+        id: edgeId,
+        type: 'smoothstep',
+        animated: true,
+        style: {
+          stroke: '#6366f1',
+          strokeDasharray: 8,
+        },
+        markerEnd: {
+          type: MarkerType.Arrow,
+          height: '20px',
+          width: '20px',
+          color: '#6366f1',
+        },
+      };
+
       set({
-        edges: addEdge({...connection, type: 'smoothstep', animated: true, markerEnd: {type: MarkerType.Arrow, height: '20px', width: '20px'}}, get().edges),
+        edges: addEdge(newEdge, get().edges),
       });
     },
     updateNodeField: (nodeId, fieldName, fieldValue) => {

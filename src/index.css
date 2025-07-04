@@ -17,3 +17,12 @@ code {
 .react-flow__handle-left{
   left: -5px !important;
 }
+.react-flow__edge-path {
+  animation: dashMove 80s linear infinite !important;
+}
+
+@keyframes dashMove {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}

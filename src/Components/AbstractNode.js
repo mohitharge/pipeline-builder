@@ -1,5 +1,5 @@
-import React from 'react';
-import { Handle } from 'reactflow';
+import React, { useState } from 'react';
+import { Handle, useReactFlow } from 'reactflow';
 
 export const AbstractNode = ({
   id,
@@ -10,6 +10,19 @@ export const AbstractNode = ({
   data,
   onChange,
 }) => {
+
+  const { setNodes } = useReactFlow();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [hovering, setHovering] = useState(false);
+
+  const deleteNode = () => {
+    if (!confirmDelete) {
+      setConfirmDelete(true);
+    } else {
+      setNodes((nodes) => nodes.filter((n) => n.id !== id));
+    }
+  };
+
   return (
     <div
       style={{
@@ -51,9 +64,56 @@ export const AbstractNode = ({
           alignItems: 'center',
         }}
       >
-        <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
-          <img style={{height:"14px"}} src={icon ?? "/Assets/default.png"} alt={`${title}-icon`} /> 
-           <span>{title}</span>
+        <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", width:"100%"}}>
+          <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+            <img style={{height:"14px"}} src={icon ?? "/Assets/default.png"} alt={`${title}-icon`} /> 
+            <span>{title}</span>
+          </div>
+          <div
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => {
+              setHovering(false);
+              setConfirmDelete(false);
+            }}
+            style={{ position: 'relative' }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: -28,
+                right: -28,
+                background: '#333',
+                color: '#fff',
+                fontSize: 11,
+                padding: '4px 6px',
+                borderRadius: 4,
+                whiteSpace: 'nowrap',
+                zIndex: 10,
+                opacity: hovering ? 1 : 0,
+                transform: `translateY(${hovering ? '0px' : '5px'})`,
+                pointerEvents: 'none',
+                transition: 'opacity 0.2s ease, transform 0.2s ease',
+              }}
+            >
+              {confirmDelete ? 'Confirm delete' : 'Delete node'}
+            </div>
+            <button
+              onClick={deleteNode}
+              style={{
+                background: confirmDelete ? '#fee2e2' : '#d7d7d7',
+                border: 'none',
+                color: confirmDelete ? '#b91c1c' : '#3e3e3e',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                fontSize: 14,
+                borderRadius: 4,
+                padding: '0 6px',
+                transition: 'background 0.2s ease',
+              }}
+            >
+              ×
+            </button>
+          </div>
         </div>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -99,6 +159,7 @@ export const AbstractNode = ({
                   borderRadius: 6,
                   fontSize: 13,
                   resize: 'none',
+                  fieldSizing: "content"
                 }}
               />
             ) : field.type === 'radio' ? (
