@@ -87,6 +87,7 @@ export const TextNode = ({ id, data }) => {
     <AbstractNode
       id={id}
       title="Text"
+      icon="/Assets/text.png"
       data={nodeData}
       onChange={handleChange}
       inputFields={[{ key: 'text', label: 'Text', type: 'textarea' }]}
