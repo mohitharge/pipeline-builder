@@ -69,21 +69,29 @@ export const ActionButtons = ({ nodes, edges, reactFlowInstance }) => {
         body: JSON.stringify({ nodes, edges }),
       });
 
-      const result = await response.json();
+      const res = await response.json();
 
-      setTimeout(() => {
-        showToast('success', `Flow submitted successfully!\n• Nodes: ${result.num_nodes}\n• Edges: ${result.num_edges}\n• DAG Valid: ${result.is_dag ? 'Yes ✅' : 'No ❌'}`, 5000);
-      }, 200);
-      setTimeout(() => {
-        handleSave()
-      }, 4000);
+      if (res.success) {
+        const result = res.data;
 
-      setLastSubmitted({ nodes, edges });
+        setTimeout(() => {
+          showToast('success', `${res.message}!\n• Nodes: ${result.num_nodes}\n• Edges: ${result.num_edges}\n• DAG Valid: ${result.is_dag ? 'Yes ✅' : 'No ❌'}`, 5000);
+        }, 200);
+
+        setLastSubmitted({ nodes, edges });
+
+      } else {
+        setTimeout(() => {
+          showToast('warning', `⚠️ ${res.message || 'Submission failed due to invalid input.'}`, 4000);
+        }, 200);
+      }
+
     } catch (err) {
-      showToast('error', `⚠️ Submission failed.\nPlease check your backend server or network.`, 3000);
+      showToast('error', `❌ Submission failed.\nPlease check your backend server or network.`, 3000);
     } finally {
-      setTimeout(() => setLoading(false), 200);
+      setLoading(false)
     }
+
   };
 
   const handleExportJSON = () => {
