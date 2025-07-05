@@ -1,6 +1,6 @@
 // textNode.js
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useReactFlow, Position, useStore, MarkerType } from 'reactflow';
 import { AbstractNode } from '../Components/AbstractNode';
 import { shallow } from 'zustand/shallow';
@@ -10,11 +10,16 @@ const VARIABLE_REGEX = /\{\{\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\}\}/g;
 export const TextNode = ({ id, data }) => {
   const [nodeData, setNodeData] = useState({
     text: data?.text || '{{input}}',
+    selectedVars: []
   });
 
   const connectedVars = useRef(new Set());
 
   const { setEdges, getEdges, addEdges, getNodes } = useReactFlow();
+
+  const handleChange = (key, value) => {
+    setNodeData((prev) => ({ ...prev, [key]: value }));
+  };
 
   const inputNames = useStore(
     (state) =>
@@ -23,6 +28,21 @@ export const TextNode = ({ id, data }) => {
         .map((n) => n.data.inputName),
     shallow
   );
+
+  useEffect(() => {
+
+  }, [])
+
+  const handleVarRemove = (varName) => {
+    setNodeData((prev) => {
+      const newText = prev.text.replaceAll(`{{${varName}}}`, '');
+      return {
+        ...prev,
+        text: newText,
+        selectedVars: prev.selectedVars.filter(v => v !== varName),
+      };
+    });
+  };
 
   useLayoutEffect(() => {
     const matchedVars = Array.from(
@@ -33,13 +53,19 @@ export const TextNode = ({ id, data }) => {
     const allNodes = getNodes();
     const existingEdges = getEdges();
     const getSourceNode = (varName) => allNodes.find((n) => n.type === 'customInput' && n.data?.inputName === varName);
-
+    
     // Remove edges for non-matched variables
     const removedVars = Array.from(connectedVars.current).filter(
       (v) => !matchedVars.includes(v)
     );
 
-    removedVars.forEach((varName) => {
+    const removedInputNames = inputNames.filter(
+      (i) => ! Array.from(connectedVars.current).includes(i)
+    );
+
+    const removedElements = [...removedVars, ...removedInputNames]
+
+    removedElements.forEach((varName) => {
       const sourceNode = getSourceNode(varName)
       const edgeToRemove = existingEdges.find(
         (e) =>
@@ -49,6 +75,7 @@ export const TextNode = ({ id, data }) => {
 
       if (edgeToRemove) {
         setEdges((edges) => edges.filter((e) => e.id !== edgeToRemove.id));
+        handleVarRemove(varName.replace(/\{\{\s*|\s*\}\}/g, ''))
       }
 
       connectedVars.current.delete(varName);
@@ -75,13 +102,16 @@ export const TextNode = ({ id, data }) => {
           markerEnd: {type: MarkerType.Arrow, height: '20px', width: '20px', color: '#6366f1'},
         });
         connectedVars.current.add(varName);
+        setNodeData(prev => ({
+          ...prev,
+          selectedVars: prev.selectedVars.includes(varName)
+            ? prev.selectedVars
+            : [...prev.selectedVars, varName]
+        }));
+
       }
     });
-  }, [nodeData.text, inputNames, setEdges, addEdges, getEdges, getNodes, id]);
-
-  const handleChange = (key, value) => {
-    setNodeData((prev) => ({ ...prev, [key]: value }));
-  };
+  }, [nodeData.text, nodeData.selectedVars, inputNames, setEdges, addEdges, getEdges, getNodes, id]);
 
   return (
     <AbstractNode
@@ -95,6 +125,7 @@ export const TextNode = ({ id, data }) => {
         { type: 'target', position: Position.Left, key: 'inputVars'},
         { type: 'source', position: Position.Right, key: 'output' },
       ]}
+      onVarRemove={handleVarRemove}
     />
   );
 }

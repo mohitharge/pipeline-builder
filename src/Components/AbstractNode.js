@@ -10,6 +10,7 @@ export const AbstractNode = ({
   handles = [],
   data,
   onChange,
+  onVarRemove = null
 }) => {
   const { setNodes } = useReactFlow();
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -157,7 +158,21 @@ export const AbstractNode = ({
       <div className="abstract-node-fields">
         {inputFields.map((field) => (
           <label key={field.key} className="field-wrapper">
-            <span>{field.label}</span>
+            {field.key === 'text' && data.selectedVars?.length > 0 && (
+              <div className="selected-vars-container">
+                {data.selectedVars.map((variable) => (
+                  <span key={variable} className="var-pill">
+                    {variable}
+                    <button
+                      onClick={() => onVarRemove?.(variable)}
+                      className="remove-button"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
             {renderField(field)}
           </label>
         ))}
