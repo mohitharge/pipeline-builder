@@ -72,20 +72,31 @@
   transform: rotate(180deg);
 }
 
-/* Action Buttons Group */
+.action-toggle-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .action-buttons-group {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%) translateX(-20px);
+  opacity: 0;
+  pointer-events: none;
   display: flex;
   gap: 8px;
-  /* overflow: hidden; */
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  max-width: 0;
-  opacity: 0;
+  white-space: nowrap;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .action-buttons-group.show {
-  max-width: 400px;
+  transform: translateY(-50%) translateX(0);
   opacity: 1;
+  pointer-events: auto;
 }
+
 
 /* Individual Action Buttons */
 .action-button {

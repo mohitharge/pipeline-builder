@@ -129,53 +129,36 @@ export const ActionButtons = ({ nodes, edges, reactFlowInstance }) => {
         <button className="submit-button" onClick={handleSubmit}>
           {loading ? 'Submitting...' : 'Submit'}
         </button>
-        
-        <button className="action-toggle-button" onClick={toggleActions}>
-          <span className={`toggle-icon ${showActions ? 'rotated' : ''}`}>{showActions ? '×' : '☰'}</span>
-        </button>
 
-        <div className={`action-buttons-group ${showActions ? 'show' : ''}`}>
-          <button className="action-button save-button" onClick={handleSave}>
-            💾 Save
+        <div className="action-toggle-wrapper">
+          <button className="action-toggle-button" onClick={toggleActions}>
+            <span className={`toggle-icon ${showActions ? 'rotated' : ''}`}>{showActions ? '×' : '☰'}</span>
           </button>
-          <button className="action-button export-button" onClick={handleExportJSON}>
-          {
-            isExporting ? (
-              <div className="spinner-container">
-                <svg className="spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <circle
-                    className="spinner-bg"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <circle
-                    className="spinner-fg"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    strokeDasharray="15.708 47.124"
-                    strokeLinecap="round"
-                  />
+
+          <div className={`action-buttons-group ${showActions ? 'show' : ''}`}>
+            <button className="action-button save-button" onClick={handleSave}>
+              💾 Save
+            </button>
+            <button className="action-button export-button" onClick={handleExportJSON}>
+              {isExporting ? (
+                <div className="spinner-container">
+                  <svg className="spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle className="spinner-bg" cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="4" />
+                    <circle className="spinner-fg" cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="4" strokeDasharray="15.708 47.124" strokeLinecap="round" />
                   </svg>
-                Exporting...
-              </div>
-            ) : (
-              "📤 Export JSON"
-            )
-          }
-          </button>
-          <button className="action-button reset-button" onClick={handleReset}>
-            ⚠️ Reset
-          </button>
+                  Exporting...
+                </div>
+              ) : (
+                "📤 Export JSON"
+              )}
+            </button>
+            <button className="action-button reset-button" onClick={handleReset}>
+              ⚠️ Reset
+            </button>
+          </div>
         </div>
       </div>
+
 
       {toast && (
         <div className={`submit-toast ${toast.type}`} role="alert">
