@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import './ActionButtons.css';
 
-export const ActionButtons = ({ nodes, edges, setNodes, setEdges, reactFlowInstance }) => {
+export const ActionButtons = ({ nodes, edges, reactFlowInstance }) => {
   const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [lastSubmitted, setLastSubmitted] = useState({ nodes: [], edges: [] });
