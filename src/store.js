@@ -9,6 +9,11 @@ import {
     MarkerType,
   } from 'reactflow';
 
+export const useThemeStore = createWithEqualityFn((set) => ({
+  darkMode: false,
+  toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+}));
+
 export const useStoreWithEqualityFn = createWithEqualityFn((set, get) => ({
     nodes: [],
     edges: [],

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { DraggableNode } from './draggableNode';
 import './Toolbar.css';
+import { useThemeStore } from './store';
 
 export const isDesktop = window.matchMedia('(min-width: 769px)').matches;
 
@@ -21,7 +22,8 @@ const demoNodes = [
   { imgUrl: '/Assets/node.png', type: 'SurveyNode', label: 'Survey' },
 ];
 
-export const PipelineToolbar = ({ darkMode, setDarkMode }) => {
+export const PipelineToolbar = () => {
+  const { darkMode, toggleDarkMode } = useThemeStore();
   const [showDropdown, setShowDropdown] = useState({
     primary: false,
     demo: false,
@@ -126,7 +128,7 @@ export const PipelineToolbar = ({ darkMode, setDarkMode }) => {
         </div>
 
         {/* Dark Mode Toggle */}
-        <button className="icon-toggle" onClick={() => setDarkMode((prev) => !prev)}>
+        <button className="icon-toggle" onClick={() => toggleDarkMode()}>
           <img
             src="/Assets/sun.png"
             alt="Light mode"

@@ -20,6 +20,17 @@ code {
 .react-flow__edge-path {
   animation: dashMove 80s linear infinite !important;
 }
+.react-flow-container {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.react-flow-container.dark {
+  background-color: #1e293b;
+}
+
+.react-flow-container.light {
+  background-color: #ffffff;
+}
 
 @keyframes dashMove {
   to {

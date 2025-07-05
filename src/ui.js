@@ -3,7 +3,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
-import { useStoreWithEqualityFn } from './store';
+import { useStoreWithEqualityFn, useThemeStore } from './store';
 import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
@@ -42,7 +42,8 @@ const selector = (state) => ({
   onConnect: state.onConnect,
 });
 
-export const PipelineUI = ({darkMode}) => {
+export const PipelineUI = () => {
+    const { darkMode } = useThemeStore();
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const [canvasHeight, setCanvasHeight] = useState('100vh');
@@ -139,9 +140,7 @@ export const PipelineUI = ({darkMode}) => {
         <>
         <div ref={reactFlowWrapper} style={{ width: '100%', height: canvasHeight }}>
             <ReactFlow
-                style={{
-                  background: darkMode ? '#1e293b' : ''
-                }}
+                className={`react-flow-container ${darkMode ? 'dark' : 'light'}`}
                 nodes={nodes}
                 edges={edges}
                 onNodesChange={onNodesChange}
