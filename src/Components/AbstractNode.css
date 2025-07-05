@@ -59,17 +59,24 @@
 }
 
 .abstract-node-delete {
-  background: #d7d7d7;
   border: none;
-  color: #3e3e3e;
+  height: 30px;
+  width: 32px;
+  color: #3e3e3ec4;
   font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
-  padding: 0 6px;
+  font-size: 16px;
+  border-radius: 50%;
+  padding: 0;
   transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.abstract-node-delete:hover{
+  background: #d7d7d7;
+}
 .abstract-node-delete.confirm {
   background: #fee2e2;
   color: #b91c1c;
@@ -144,6 +151,8 @@
   }
 
   .abstract-node-delete {
+    height: 20px;
+    width: 30px;
     font-size: 12px;
     padding: 0 5px;
   }
