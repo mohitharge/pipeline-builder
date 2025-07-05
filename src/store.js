@@ -17,6 +17,9 @@ export const useThemeStore = createWithEqualityFn((set) => ({
 export const useStoreWithEqualityFn = createWithEqualityFn((set, get) => ({
     nodes: [],
     edges: [],
+    setNodes: (nodes) => set({ nodes }),
+    setEdges: (edges) => set({ edges }),
+
     getNodeID: (type) => {
         const newIDs = {...get().nodeIDs};
         if (newIDs[type] === undefined) {

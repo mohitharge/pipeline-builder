@@ -1,0 +1,298 @@
+/* ActionButtons.css */
+
+/* Position 20px above bottom center */
+.submit-button-container {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Main Submit Button */
+.submit-button {
+  border: none;
+  background-color: #6366f1;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 120px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button:disabled {
+  background-color: #d1d5db;
+  color: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Action Toggle Button */
+.action-toggle-button {
+  border: none;
+  background-color: #374151;
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.action-toggle-button:hover {
+  background-color: #4b5563;
+  transform: scale(1.1);
+}
+
+.toggle-icon {
+  transition: transform 0.3s ease;
+  margin-bottom: 1px;
+}
+
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* Action Buttons Group */
+.action-buttons-group {
+  display: flex;
+  gap: 8px;
+  /* overflow: hidden; */
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  max-width: 0;
+  opacity: 0;
+}
+
+.action-buttons-group.show {
+  max-width: 400px;
+  opacity: 1;
+}
+
+/* Individual Action Buttons */
+.action-button {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: 80px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.save-button {
+  background-color: #10b981;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+}
+
+.load-button {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.load-button:hover {
+  background-color: #d97706;
+  transform: translateY(-1px);
+}
+
+.export-button {
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.export-button:hover {
+  background-color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.reset-button {
+  background-color: #da8686;
+  color: #521212;
+}
+
+.reset-button:hover {
+  background-color: #f87171;
+  transform: translateY(-1px);
+}
+
+
+/* Spinner container */
+.spinner-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  height: 1rem;
+  width: 1rem;
+  animation: spin 1s linear infinite;
+  color: white;
+  display: block;
+}
+.spinner-bg {
+  opacity: 0.25;
+}
+.spinner-fg {
+  opacity: 0.75;
+  transform-origin: 50% 50%;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toast Message */
+.submit-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 24px;
+  max-width: 320px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.3s ease-in-out;
+  z-index: 1001;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+/* Toast Types */
+.submit-toast.success {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.submit-toast.error {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+  text-align: center;
+}
+
+.submit-toast.warning {
+  background-color: #fefce8;
+  color: #92400e;
+  border: 1px solid #facc15;
+  text-align: center;
+}
+
+/* Toast Close Button */
+.close-toast {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-toast:hover {
+  opacity: 0.6;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 40px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .submit-button {
+    font-size: 12px;
+    padding: 8px 16px;
+    min-width: 100px;
+  }
+
+  .submit-button-container {
+    bottom: 20px;
+    gap: 8px;
+  }
+
+  .action-toggle-button {
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+  }
+
+  .action-button {
+    font-size: 12px;
+    padding: 6px 12px;
+    min-width: 70px;
+  }
+
+  .action-buttons-group.show {
+    max-width: 320px;
+  }
+
+  .submit-toast {
+    bottom: 80px;
+    font-size: 13px;
+    padding: 12px 18px;
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 360px) {
+  .submit-toast {
+    font-size: 12px;
+    padding: 10px 14px;
+  }
+}
+
+/* Additional Button Animations */
+.action-button:active {
+  transform: scale(0.95);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.action-toggle-button:active {
+  transform: scale(0.95);
+}

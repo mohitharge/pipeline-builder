@@ -24,10 +24,7 @@ const demoNodes = [
 
 export const PipelineToolbar = () => {
   const { darkMode, toggleDarkMode } = useThemeStore();
-  const [showDropdown, setShowDropdown] = useState({
-    primary: false,
-    demo: false,
-  });
+  const [showDropdown, setShowDropdown] = useState({ primary: false, demo: false });
 
   const demoRef = useRef(null);
   const primaryRef = useRef(null);
@@ -35,10 +32,8 @@ export const PipelineToolbar = () => {
   useEffect(() => {
     const handlePointerDown = (event) => {
       if (
-        demoRef.current &&
-        !demoRef.current.contains(event.target) &&
-        primaryRef.current &&
-        !primaryRef.current.contains(event.target)
+        demoRef.current && !demoRef.current.contains(event.target) &&
+        primaryRef.current && !primaryRef.current.contains(event.target)
       ) {
         setShowDropdown({ primary: false, demo: false });
       }
@@ -89,14 +84,13 @@ export const PipelineToolbar = () => {
                 setShowDropdown((prev) => ({
                   ...prev,
                   primary: !prev.primary,
-                  demo: false, // only one open at a time
+                  demo: false,
                 }))
               }
             >
-              <img src="/Assets/node.png" alt="button" height={14} />{' '}
+              <img src="/Assets/node.png" alt="button" height={14} />
               <span>Primary Nodes</span>
             </button>
-
             <div className={`dropdown-menu ${showDropdown.primary ? 'open' : ''}`}>
               {primaryNodes.map((node) => (
                 <DraggableNode key={node.type} {...node} />
@@ -113,13 +107,13 @@ export const PipelineToolbar = () => {
               setShowDropdown((prev) => ({
                 ...prev,
                 demo: !prev.demo,
-                primary: false, // only one open at a time
+                primary: false,
               }))
             }
           >
-            <img src="/Assets/node.png" alt="button" height={14} /> <span>Demo Nodes</span>
+            <img src="/Assets/node.png" alt="button" height={14} />
+            <span>Demo Nodes</span>
           </button>
-
           <div className={`dropdown-menu ${showDropdown.demo ? 'open' : ''}`}>
             {demoNodes.map((node) => (
               <DraggableNode key={node.type} {...node} />
@@ -128,7 +122,7 @@ export const PipelineToolbar = () => {
         </div>
 
         {/* Dark Mode Toggle */}
-        <button className="icon-toggle" onClick={() => toggleDarkMode()}>
+        <button className="icon-toggle" onClick={toggleDarkMode}>
           <img
             src="/Assets/sun.png"
             alt="Light mode"
