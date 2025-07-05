@@ -11,7 +11,7 @@ export const ActionButtons = ({ nodes, edges, setNodes, setEdges, reactFlowInsta
 
   const isSameGraph = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
-  const showToast = (type, message, timeout = 3000) => {
+  const showToast = (type, message, timeout = 1500) => {
     setToast({ type, message });
     setTimeout(() => setToast(null), timeout);
   };
@@ -72,7 +72,7 @@ export const ActionButtons = ({ nodes, edges, setNodes, setEdges, reactFlowInsta
       const result = await response.json();
 
       setTimeout(() => {
-        showToast('success', `Flow submitted successfully!\n• Nodes: ${result.num_nodes}\n• Edges: ${result.num_edges}\n• DAG Valid: ${result.is_dag ? 'Yes ✅' : 'No ❌'}`, 9000);
+        showToast('success', `Flow submitted successfully!\n• Nodes: ${result.num_nodes}\n• Edges: ${result.num_edges}\n• DAG Valid: ${result.is_dag ? 'Yes ✅' : 'No ❌'}`, 5000);
       }, 200);
       setTimeout(() => {
         handleSave()
@@ -80,7 +80,7 @@ export const ActionButtons = ({ nodes, edges, setNodes, setEdges, reactFlowInsta
 
       setLastSubmitted({ nodes, edges });
     } catch (err) {
-      showToast('error', `⚠️ Submission failed.\nPlease check your backend server or network.`, 5000);
+      showToast('error', `⚠️ Submission failed.\nPlease check your backend server or network.`, 3000);
     } finally {
       setTimeout(() => setLoading(false), 200);
     }
@@ -126,7 +126,7 @@ export const ActionButtons = ({ nodes, edges, setNodes, setEdges, reactFlowInsta
   return (
     <>
       <div className="submit-button-container">
-        <button className="submit-button" onClick={handleSubmit} disabled={loading}>
+        <button className="submit-button" onClick={handleSubmit}>
           {loading ? 'Submitting...' : 'Submit'}
         </button>
         
