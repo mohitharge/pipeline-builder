@@ -31,11 +31,11 @@ export const PipelineToolbar = () => {
 
   useEffect(() => {
     const handlePointerDown = (event) => {
-      if (
-        demoRef.current && !demoRef.current.contains(event.target) &&
-        primaryRef.current && !primaryRef.current.contains(event.target)
-      ) {
-        setShowDropdown({ primary: false, demo: false });
+      if (demoRef.current && !demoRef.current.contains(event.target)) {
+        setShowDropdown(prev => ({ ...prev, demo: false }));
+      }
+      if (primaryRef.current && !primaryRef.current.contains(event.target)) {
+        setShowDropdown(prev => ({ ...prev, primary: false }));
       }
     };
 
