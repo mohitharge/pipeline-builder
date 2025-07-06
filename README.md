@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# ⚙️ React Pipeline Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modular visual pipeline builder built with **React**, **React Flow**, and **vanilla CSS**, allowing users to drag, drop, and connect nodes to build dynamic workflows with real-time visual feedback and edge generation.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- 🔌 **Auto Edge Creation** based on `{{variable}}` references inside `TextNode`
+- 💊 **Variable Pills** inside `TextNode`, removable with a click
+- 📦 **LLM Node** with `system` and `prompt` inputs
+- ⚙️ **Reusable AbstractNode** to render multiple node types
+- 🖱️ **Drag & Drop Nodes**, fully integrated with React Flow
+- 🎨 **Theme Toggle (Dark/Light)**
+- 💾 **Action Buttons**: Save, Export JSON, Reset with animations
+- ⚡ Built using `Zustand` for efficient state management
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> **Coming soon**: Variable suggestions dropdown while typing `{{` inside `TextNode`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠 Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repo**
 
-### `npm run build`
+```bash
+git clone https://github.com/your-username/react-pipeline-builder.git
+cd react-pipeline-builder
+````
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install dependencies**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Start the app**
 
-### `npm run eject`
+```bash
+npm run dev
+# or
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📁 Folder Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+src/
+├── Components/
+│   └── AbstractNode.js
+├── nodes/
+│   ├── inputNode.js
+│   ├── outputNode.js
+│   ├── textNode.js
+│   ├── llmNode.js
+│   ├── ConfigNode.js
+│   ├── SurveyNode.js
+│   ├── APICallNode.js
+│   ├── CommentNode.js
+│   └── ConditionNode.js
+├── store.js
+├── ActionButtons.js
+├── toolbar.js
+├── draggableNode.js
+├── ui.js
+├── App.js
+└── index.js
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🧭 Planned Features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The following features are currently under development or planned:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. 🧠 **Variable Suggestions in TextNode**  
+   Show a smart dropdown with available variables when user types `{{`, allowing easy insertion.
 
-### Code Splitting
+2. ❗ **Error Handling for Variable Dependencies**  
+   Display visual error states for nodes that reference undefined or disconnected variables.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. 🤖 **LLM Node Integration with OpenAI API**  
+   Execute actual LLM calls using OpenAI's API, enabling real pipeline execution and output preview.
 
-### Analyzing the Bundle Size
+4. 📚 **KnowledgeBase Node (Chatbot Builder)**  
+   Upload `.pdf`, `.txt`, or `.doc` files to create a knowledge base that can be linked to the LLM node.  
+   Ultimately, this will enable building a **full-fledged chatbot** that answers based on uploaded document context.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+💡 The goal is to evolve this pipeline builder into a **powerful no-code chatbot creation platform**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🧑‍💻 Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Made with ❤️ by **Mohit Harge**
