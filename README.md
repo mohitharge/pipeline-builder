@@ -2,7 +2,7 @@
 
 A modular visual pipeline builder built with **React**, **React Flow**, and **vanilla CSS**, allowing users to drag, drop, and connect nodes to build dynamic workflows with real-time visual feedback and edge generation.
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live-blue?style=flat-square)](https://pipeline-builder-one.vercel.app)
+🚀 **Live Demo**: [https://pipeline-builder-one.vercel.app](https://pipeline-builder-one.vercel.app)
 
 ---
 
@@ -53,22 +53,22 @@ src/
 ├── Components/
 │   └── AbstractNode.js
 ├── nodes/
-│   ├── inputNode.js
-│   ├── outputNode.js
-│   ├── textNode.js
-│   ├── llmNode.js
-│   ├── ConfigNode.js
-│   ├── SurveyNode.js
 │   ├── APICallNode.js
 │   ├── CommentNode.js
-│   └── ConditionNode.js
-├── store.js
+│   ├── ConditionNode.js
+│   ├── ConfigNode.js
+│   ├── inputNode.js
+│   ├── llmNode.js
+│   ├── outputNode.js
+│   ├── SurveyNode.js
+│   └── textNode.js
 ├── ActionButtons.js
-├── toolbar.js
-├── draggableNode.js
-├── ui.js
 ├── App.js
-└── index.js
+├── draggableNode.js
+├── index.js
+├── store.js
+├── toolbar.js
+└── ui.js
 ```
 
 ---
