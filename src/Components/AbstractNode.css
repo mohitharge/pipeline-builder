@@ -209,7 +209,9 @@
 }
 
 .field-wrapper textarea {
+  padding: 10px;
   resize: none;
+  field-sizing: content;
 }
 
 .radio-group {
