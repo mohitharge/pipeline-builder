@@ -1,8 +1,56 @@
+.selected-vars-container,
+.dropdown-wrapper {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.selected-vars-container.visible,
+.dropdown-wrapper.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .selected-vars-container {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 8px;
+}
+.dropdown-wrapper {
+  position: absolute;
+  top: 5rem;
+  width: 100%;
+}
+.var-dropdown li {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: fadeInStagger 0.3s ease forwards;
+}
+.close-button{
+  margin-left: 6px;
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 18px;
+  z-index: 999;
+  right: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #6366f1;
+}
+.var-dropdown li:nth-child(1) { animation-delay: 0s; }
+.var-dropdown li:nth-child(2) { animation-delay: 0.05s; }
+.var-dropdown li:nth-child(3) { animation-delay: 0.1s; }
+/* add more as needed */
+
+@keyframes fadeInStagger {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .var-pill {
@@ -21,6 +69,34 @@
   cursor: pointer;
   font-weight: bold;
   color: #6366f1;
+}
+
+.var-dropdown {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 4px 0;
+  z-index: 100;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.var-dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.var-dropdown li:hover {
+  background-color: #f3f4f6;
+  color: #111827;
 }
 
 .abstract-node {
@@ -65,8 +141,8 @@
   position: absolute;
   top: -28px;
   right: -28px;
-  background: #333;
-  color: #fff;
+  background: rgb(226, 226, 226);
+  color: rgb(30, 30, 30);
   font-size: 11px;
   padding: 4px 6px;
   border-radius: 4px;
@@ -120,6 +196,7 @@
   font-weight: 500;
   gap: 5px;
   margin-top: 10px;
+  position: relative;
 }
 
 .field-wrapper select,

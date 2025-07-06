@@ -30,7 +30,7 @@ export const AbstractNode = ({
     switch (field.type) {
       case 'select':
         return (
-          <select value={value} onChange={(e) => onChange(field.key, e.target.value)}>
+          <select name={`${field.key}-${id}`} id={id} value={value} onChange={(e) => onChange(field.key, e.target.value)}>
             {field.options.map((opt) => (
               <option key={opt} value={opt}>
                 {opt}
@@ -43,7 +43,9 @@ export const AbstractNode = ({
         return (
           <textarea
             value={value}
-            onChange={(e) => onChange(field.key, e.target.value)}
+            id={id}
+            name={`${field.key}-${id}`}
+            onChange={(e) => onChange(field.key, e.target.value, e)}
             rows={3}
           />
         );
@@ -55,6 +57,7 @@ export const AbstractNode = ({
               <label key={opt}>
                 <input
                   type="radio"
+                  id={id}
                   name={`${field.key}-${id}`}
                   value={opt}
                   checked={value === opt}
@@ -73,6 +76,8 @@ export const AbstractNode = ({
               <label key={opt}>
                 <input
                   type="checkbox"
+                  id={id}
+                  name={`${field.key}-${id}`}
                   checked={value?.includes(opt)}
                   onChange={(e) => {
                     const current = value || [];
@@ -94,6 +99,8 @@ export const AbstractNode = ({
           <label className="toggle-wrapper">
             <input
               type="checkbox"
+              id={id}
+              name={`${field.key}-${id}`}
               checked={!!value}
               onChange={(e) => onChange(field.key, e.target.checked)}
             />
@@ -105,6 +112,8 @@ export const AbstractNode = ({
         return (
           <input
             type={field.type}
+            id={id}
+            name={`${field.key}-${id}`}
             value={value}
             onChange={(e) => onChange(field.key, e.target.value)}
           />
@@ -158,8 +167,13 @@ export const AbstractNode = ({
       <div className="abstract-node-fields">
         {inputFields.map((field) => (
           <label key={field.key} className="field-wrapper">
-            {field.key === 'text' && data.selectedVars?.length > 0 && (
-              <div className="selected-vars-container">
+            {/* Selected Variables Pills */}
+            {field.key === 'text' && (
+              <div
+                className={`selected-vars-container ${
+                  data.selectedVars?.length > 0 ? 'visible' : ''
+                }`}
+              >
                 {data.selectedVars.map((variable) => (
                   <span key={variable} className="var-pill">
                     {variable}
