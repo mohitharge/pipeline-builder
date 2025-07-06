@@ -48,7 +48,7 @@ export const ActionButtons = ({ nodes, edges, reactFlowInstance }) => {
   }
 
   const handleSubmit = async () => {
-    if (toast) return;
+    if (toast || loading) return;
     if (!nodes.length && !edges.length) {
       showToast('warning', '⚠️ No nodes or edges to submit.\nPlease build your flow before submitting.');
       return;
@@ -134,20 +134,20 @@ export const ActionButtons = ({ nodes, edges, reactFlowInstance }) => {
   return (
     <>
       <div className="submit-button-container">
-        <button className="submit-button" onClick={handleSubmit}>
+        <button disabled={toast || loading} className="submit-button" onClick={handleSubmit}>
           {loading ? 'Submitting...' : 'Submit'}
         </button>
 
         <div className="action-toggle-wrapper">
-          <button className="action-toggle-button" onClick={toggleActions}>
+          <button disabled={toast} className="action-toggle-button" onClick={toggleActions}>
             <span className={`toggle-icon ${showActions ? 'rotated' : ''}`}>{showActions ? '×' : '☰'}</span>
           </button>
 
           <div className={`action-buttons-group ${showActions ? 'show' : ''}`}>
-            <button className="action-button save-button" onClick={handleSave}>
+            <button disabled={toast} className="action-button save-button" onClick={handleSave}>
               💾 Save
             </button>
-            <button className="action-button export-button" onClick={handleExportJSON}>
+            <button disabled={toast || isExporting} className="action-button export-button" onClick={handleExportJSON}>
               {isExporting ? (
                 <div className="spinner-container">
                   <svg className="spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -160,13 +160,12 @@ export const ActionButtons = ({ nodes, edges, reactFlowInstance }) => {
                 "📤 Export JSON"
               )}
             </button>
-            <button className="action-button reset-button" onClick={handleReset}>
+            <button disabled={toast} className="action-button reset-button" onClick={handleReset}>
               ⚠️ Reset
             </button>
           </div>
         </div>
       </div>
-
 
       {toast && (
         <div className={`submit-toast ${toast.type}`} role="alert">

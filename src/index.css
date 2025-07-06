@@ -32,6 +32,15 @@ code {
   background-color: #f3f4f6;
 }
 
+button:disabled{
+  opacity: 0.5;
+  cursor: none;
+}
+/* Disable tap highlight on all elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @keyframes dashMove {
   to {
     stroke-dashoffset: -1000;
