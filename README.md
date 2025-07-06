@@ -2,6 +2,8 @@
 
 A modular visual pipeline builder built with **React**, **React Flow**, and **vanilla CSS**, allowing users to drag, drop, and connect nodes to build dynamic workflows with real-time visual feedback and edge generation.
 
+[![Live Demo](https://img.shields.io/badge/Demo-Live-blue?style=flat-square)](https://pipeline-builder-one.vercel.app)
+
 ---
 
 ## ✨ Features
