@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { Handle, useReactFlow } from 'reactflow';
 import './AbstractNode.css';
 
@@ -15,6 +15,7 @@ export const AbstractNode = ({
   const { setNodes } = useReactFlow();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const processingRemoval = useRef(new Set());
 
   const deleteNode = () => {
     if (!confirmDelete) {
@@ -23,6 +24,28 @@ export const AbstractNode = ({
       setNodes((nodes) => nodes.filter((n) => n.id !== id));
     }
   };
+
+  const handleRemove = useCallback(
+    (varName) => (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Prevent double execution
+      if (processingRemoval.current.has(varName)) {
+        return;
+      }
+      
+      processingRemoval.current.add(varName);
+      console.log("lg1 maincall", varName);
+      onVarRemove?.(varName);
+      
+      // Clear the flag after a short delay
+      setTimeout(() => {
+        processingRemoval.current.delete(varName);
+      }, 100);
+    },
+    [onVarRemove]
+  );
 
   const renderField = (field) => {
     const value = data[field.key];
@@ -178,8 +201,9 @@ export const AbstractNode = ({
                   <span key={variable} className="var-pill">
                     {variable}
                     <button
-                      onClick={() => onVarRemove?.(variable)}
+                      onClick={handleRemove(variable)}
                       className="remove-button"
+                      type="button"
                     >
                       ×
                     </button>
