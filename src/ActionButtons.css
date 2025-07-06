@@ -33,13 +33,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.submit-button:disabled {
-  background-color: #d1d5db;
-  color: #6b7280;
-  cursor: not-allowed;
-  transform: none;
-}
-
 /* Action Toggle Button */
 .action-toggle-button {
   border: none;
@@ -58,7 +51,7 @@
   height: 30px;
 }
 
-.action-toggle-button:hover {
+.action-toggle-button:hover:not(:disabled) {
   background-color: #4b5563;
   transform: scale(1.1);
 }
@@ -117,7 +110,7 @@
   color: white;
 }
 
-.save-button:hover {
+.save-button:hover:not(:disabled) {
   background-color: #059669;
   transform: translateY(-1px);
 }
@@ -127,7 +120,7 @@
   color: white;
 }
 
-.load-button:hover {
+.load-button:hover:not(:disabled) {
   background-color: #d97706;
   transform: translateY(-1px);
 }
@@ -137,7 +130,7 @@
   color: white;
 }
 
-.export-button:hover {
+.export-button:hover:not(:disabled) {
   background-color: #7c3aed;
   transform: translateY(-1px);
 }
@@ -147,7 +140,7 @@
   color: #521212;
 }
 
-.reset-button:hover {
+.reset-button:hover:not(:disabled) {
   background-color: #f87171;
   transform: translateY(-1px);
 }
@@ -235,7 +228,7 @@
   line-height: 1;
 }
 
-.close-toast:hover {
+.close-toast:hover:not(:disabled) {
   opacity: 0.6;
 }
 
@@ -275,9 +268,18 @@
     padding: 6px 12px;
     min-width: 70px;
   }
-
+  .action-buttons-group{
+    flex-wrap: wrap;
+    left: -2.2rem;
+    flex-direction: column;
+    top: -4rem;
+  }
   .action-buttons-group.show {
     max-width: 320px;
+    flex-wrap: wrap;
+    left: -2.2rem;
+    flex-direction: column;
+    top: -4rem;
   }
 
   .submit-toast {
