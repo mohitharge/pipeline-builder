@@ -26,8 +26,8 @@ A modular visual pipeline builder built with **React**, **React Flow**, and **va
 1. **Clone the repo**
 
 ```bash
-git clone https://github.com/your-username/react-pipeline-builder.git
-cd react-pipeline-builder
+git clone https://github.com/mohitharge/pipeline-builder
+cd pipeline-builder
 ````
 
 2. **Install dependencies**
